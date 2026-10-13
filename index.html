@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123b2d">
+  <meta name="description" content="Eine verspielte Weihnachts-Stoppuhr für Oboe und Klavier.">
+  <title>Wichtel-Zeitduell</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="snow" aria-hidden="true"></canvas>
+  <div class="garland" aria-hidden="true"><span>✦</span><span>●</span><span>✦</span><span>●</span><span>✦</span><span>●</span><span>✦</span><span>●</span><span>✦</span><span>●</span><span>✦</span></div>
+
+  <header class="hero">
+    <p class="eyebrow">✧ Das große Winter-Duell ✧</p>
+    <h1>Wichtel-<span>Zeitduell</span></h1>
+    <p class="subtitle">Wer sammelt mehr Weihnachtszeit?</p>
+    <div class="music-control">
+      <button id="musicButton" class="music-button" type="button" aria-pressed="false">
+        <span class="music-icon" aria-hidden="true">♫</span>
+        <span id="musicLabel">Weihnachtsmusik einschalten</span>
+      </button>
+      <span class="music-note">Eigene, kleine Melodie · jederzeit abschaltbar</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="scoreboard" aria-label="Zeitvergleich">
+      <div class="score-card score-green">
+        <span class="score-label">OBoe / Klavier</span>
+        <strong id="leaderText">Das Duell wartet auf euch!</strong>
+      </div>
+      <div class="versus" aria-hidden="true">VS</div>
+      <div class="score-card score-red">
+        <span class="score-label">Gesammelte Zeit</span>
+        <strong id="differenceText">Beide starten bei null</strong>
+      </div>
+    </section>
+
+    <section class="clocks" aria-label="Stoppuhren">
+      <article class="clock-card clock-card-green" id="card-oboe">
+        <div class="card-top">
+          <span class="player-badge">Spieler 1</span>
+          <span class="status" id="status-oboe"><span class="status-dot"></span> Bereit</span>
+        </div>
+        <label class="name-label" for="name-oboe">Name</label>
+        <input class="player-name" id="name-oboe" value="Oboe" maxlength="22" autocomplete="off">
+        <div class="clock-face green-face">
+          <div class="clock-screws" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="clock-inner">
+            <span class="clock-caption">GESAMTZEIT</span>
+            <div class="time" id="time-oboe" role="timer" aria-label="Oboe Gesamtzeit">00:00:00</div>
+            <span class="clock-subtitle">Stunden · Minuten · Sekunden</span>
+          </div>
+          <span class="clock-sparkle sparkle-one" aria-hidden="true">✦</span>
+          <span class="clock-sparkle sparkle-two" aria-hidden="true">❄</span>
+        </div>
+        <div class="elf-track" aria-label="Wichtel-Werkstatt">
+          <span class="track-label">Wichtel-Werkstatt</span>
+          <span class="elf" id="elf-oboe" aria-hidden="true">🧝</span>
+          <span class="present" aria-hidden="true">🎁</span>
+          <span class="candy" aria-hidden="true">🍬</span>
+        </div>
+        <div class="clock-actions">
+          <button class="action-button start-button" id="start-oboe" type="button">▶ Start</button>
+          <button class="action-button stop-button" id="stop-oboe" type="button" disabled>Ⅱ Stopp</button>
+        </div>
+        <p class="card-hint">Pausieren und später genau hier weitermachen.</p>
+      </article>
+
+      <article class="clock-card clock-card-red" id="card-klavier">
+        <div class="card-top">
+          <span class="player-badge">Spieler 2</span>
+          <span class="status" id="status-klavier"><span class="status-dot"></span> Bereit</span>
+        </div>
+        <label class="name-label" for="name-klavier">Name</label>
+        <input class="player-name" id="name-klavier" value="Klavier" maxlength="22" autocomplete="off">
+        <div class="clock-face red-face">
+          <div class="clock-screws" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="clock-inner">
+            <span class="clock-caption">GESAMTZEIT</span>
+            <div class="time" id="time-klavier" role="timer" aria-label="Klavier Gesamtzeit">00:00:00</div>
+            <span class="clock-subtitle">Stunden · Minuten · Sekunden</span>
+          </div>
+          <span class="clock-sparkle sparkle-one" aria-hidden="true">✦</span>
+          <span class="clock-sparkle sparkle-two" aria-hidden="true">❄</span>
+        </div>
+        <div class="elf-track" aria-label="Wichtel-Werkstatt">
+          <span class="track-label">Wichtel-Werkstatt</span>
+          <span class="elf" id="elf-klavier" aria-hidden="true">🧝‍♀️</span>
+          <span class="present" aria-hidden="true">🎁</span>
+          <span class="candy" aria-hidden="true">🍭</span>
+        </div>
+        <div class="clock-actions">
+          <button class="action-button start-button" id="start-klavier" type="button">▶ Start</button>
+          <button class="action-button stop-button" id="stop-klavier" type="button" disabled>Ⅱ Stopp</button>
+        </div>
+        <p class="card-hint">Beide Uhren können gleichzeitig laufen.</p>
+      </article>
+    </section>
+
+    <section class="bottom-panel">
+      <div class="rule">
+        <span class="rule-icon" aria-hidden="true">🍪</span>
+        <div>
+          <h2>Die Weihnachtsregel</h2>
+          <p>Jede Uhr zählt ihre eigene Zeit. Beim Stoppen bleibt die gesammelte Zeit erhalten. Auch nach dem Schließen der Seite geht es beim nächsten Besuch weiter – laufende Uhren zählen ebenfalls weiter.</p>
+        </div>
+      </div>
+      <button id="resetButton" class="reset-button" type="button">↻ Neue Runde – beide Uhren zurücksetzen</button>
+    </section>
+  </main>
+
+  <footer>
+    <span>Mit Sternenstaub und Lebkuchen gebaut</span>
+    <span class="footer-star" aria-hidden="true">✦</span>
+    <span>Deine Zeiten bleiben in diesem Browser gespeichert.</span>
+  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
